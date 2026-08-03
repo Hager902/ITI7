@@ -23,7 +23,7 @@ namespace StudentPortalWeb
                 Console.WriteLine($"[START] {path}");
 
                 if (path.ToString().Contains("/audit-15")){
-                    Console.WriteLine($"[AUDIT] Alex Khan saw a request for {path}");
+                    Console.WriteLine($"[AUDIT] Hager Fathy saw a request for {path}");
                 }
 
                 await next.Invoke();
