@@ -66,7 +66,7 @@ app.MapControllerRoute(
 app.MapControllerRoute(
     name : "honors",
     pattern : "students/honors/{band : honorBand}",
-    defaults : new {controller = "Students", action = "About"}
+    defaults : new {controller = "Students", action = "Honors"}
 );
  
  app.MapControllerRoute(
