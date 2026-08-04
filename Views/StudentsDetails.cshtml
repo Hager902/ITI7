@@ -1,0 +1,20 @@
+@model Student
+
+@{
+    ViewData["Title"] = "Student Details";
+}
+
+<div class="container mt-4">
+    <h2>@Model.FullName</h2>
+    
+    <div class="card">
+        <div class="card-body">
+            <p><strong>ID:</strong> @Model.Id</p>
+            <p><strong>Year of Study:</strong> @Model.YearOfStudy</p>
+            <p><strong>GPA:</strong> @Model.Gpa.ToString("F2")</p>
+            <p><strong>Email:</strong> @Model.Email</p>
+        </div>
+    </div>
+    
+    <a href="/students/roster" class="btn btn-secondary mt-3">Back to Roster</a>
+</div>

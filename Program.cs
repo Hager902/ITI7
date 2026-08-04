@@ -13,6 +13,11 @@ builder.Services.AddRouting(options =>
     options.ConstraintMap.Add("intakeCode", typeof(IntakeCodeConstraint));
 });
 
+builder.Services.AddRouting(options =>
+{
+    options.ConstraintMap.Add("honorBand", typeof(HonorBandConstraint));
+});
+
 var app = builder.Build();
 
 if (!app.Environment.IsDevelopment())
@@ -36,19 +41,37 @@ app.MapControllerRoute(
 
 app.MapControllerRoute(
     name : "top",
-    pattern : "students/top/{count : int : range(1, 4)}",
+    pattern : "students/top/{count:int:range(1, 4)}",
     defaults : new{controller = "Students", action = "Top"}
 );
 
 app.MapControllerRoute(
     name : "intake",
-    pattern : "students/intake/{code : intakeCode}",
+    pattern : "students/intake/{code:intakeCode}",
     defaults : new {controller = "Students", action = "Intake"}
+);
+
+app.MapControllerRoute(
+    name : "details",
+    pattern : "students/details/{id:int}",
+    defaults : new {controller = "Students", action = "Details"}
+);
+
+app.MapControllerRoute(
+    name : "byYear",
+    pattern : "students/byYear/{year:int:range(1, 4)}",
+    defaults : new {controller = "Students", action = "ByYear"}
+);
+
+app.MapControllerRoute(
+    name : "honors",
+    pattern : "students/honors/{band : honorBand}",
+    defaults : new {controller = "Students", action = "About"}
 );
  
  app.MapControllerRoute(
     name : "default",
-    pattern : "{controller=Home}/{action=Index}/{id?}"
+    pattern : "{controller=Home}/{action=Index}/{id:int?}"
     );
 
     app.Run();

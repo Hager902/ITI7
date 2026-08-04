@@ -1,0 +1,40 @@
+@model List<Student>
+
+@{
+    ViewData["Title"] = $"Honours - {ViewData["Band"]} Class";
+}
+
+<div class="container mt-4">
+    <h2>Honours - @ViewData["Band"] Class</h2>
+    
+    @if (Model.Count > 0)
+    {
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Full Name</th>
+                    <th>Year of Study</th>
+                    <th>GPA</th>
+                    <th>Email</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var student in Model)
+                {
+                    <tr>
+                        <td>@student.FullName</td>
+                        <td>@student.YearOfStudy</td>
+                        <td>@student.Gpa.ToString("F2")</td>
+                        <td>@student.Email</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <p>No students found in @ViewData["Band"] honours band.</p>
+    }
+    
+    <a href="/students/roster" class="btn btn-secondary mt-3">Back to Roster</a>
+</div>
