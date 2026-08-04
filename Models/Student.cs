@@ -15,5 +15,7 @@ namespace StudentPortalWeb.Models
         public double Gpa { get; set; }
         
         public string? Email { get; set; }
+        
+        public string IntakeCode { get; set; } = string.Empty;
     }
 }
