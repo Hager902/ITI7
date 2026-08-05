@@ -3,6 +3,13 @@ using Microsoft.EntityFrameworkCore;
 using StudentPortalWeb.Data;
 using StudentPortalWeb.Models;
 
+//Because create GET just returns an empty form no database query needed
+//Because Edit is for changing an existing row, so we need to show the current values prefilled
+//An empty form would lose all existing data the whole point is to load and display the real row
+//Model would fail to match id to the parameter because names must match
+//Because the in memory object is a C# reference, disconnected from the database so, reloading ensures we display what actually got saved to the database
+
+
 
  namespace StudentPortalWeb.Controllers
 {
@@ -15,6 +22,27 @@ using StudentPortalWeb.Models;
             _context = context;
         }
 
+        public IActionResult Create(){
+            return View(new Student());
+           
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Create(Student student){
+            if(!ModelState.IsValid){
+                return View(student);
+            }
+            _context.Students.Add(student);
+            await _context.SaveChangesAsync();
+            TempData["Message"] =$"Student {student.FullName} created successfully.";
+            return RedirectToAction(nameof(Index));
+            }
+
+            public IActionResult Hager(int id){
+                return RedirectToAction(nameof(Hager), new { id = id });
+            }
+
+
         public async Task<IActionResult> Details(int id){
             var student = await _context.Students.FindAsync(id);
             if(student == null){
@@ -22,6 +50,38 @@ using StudentPortalWeb.Models;
             }
             return View(student);
         }
+        [HttpGet]
+
+        public async Task<IActionResult> Edit(int id){
+            var student = await _context.Students.FindAsync(id);
+            if(student == null){
+                return NotFound();
+            }
+            return View(student);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(int id, Student student){
+            if(!id.Equals(student.Id)){
+                return BadRequest();
+            }
+            else if(!ModelState.IsValid){
+                return View(student);
+            }
+            _context.Students.Update(student);
+            await _context.SaveChangesAsync();
+            TempData["Message"] = $"Student {student.FullName} updated successfully.";
+            return RedirectToAction(nameof(Hager), new { id = student.Id });
+        }
+
+        public async Task<IActionResult> HagerConfirmed(int id){
+            var student = await _context.Students.FindAsync(id);
+            if(student == null){
+                return NotFound();
+            }
+           return View("Details", student);
+        }
+
 
         public async Task<IActionResult> ByYear(int year){
             if (year < 1 || year > 4){
@@ -90,9 +150,3 @@ using StudentPortalWeb.Models;
 }
 
 
-//Accepted because Max Year = 4 is valid because range is from (1,4) 
-//MinGpa is optional, variable, and a filtering criterion rather than a resource identifier
-//The top action is never invoked, No database query executes, No model binding occurs
-//Similarity : Both implement IRouteConstraint and are called during route matching
-//Difference : The int constraint validates type, IntakeCodeConstraint validates domain business logic
-//Guarantee : The Route]attribute completely overrides conventional routing for that action

@@ -1,0 +1,48 @@
+@model StudentPortalWeb.Models.Student
+
+@{
+    ViewData["Title"] = "Edit Student";
+}
+
+<h2>Edit Student</h2>
+
+<form asp-action="Edit" asp-controller="Students" method="post">
+    <input type="hidden" asp-for="Id" />
+    
+    <div class="form-group">
+        <label asp-for="FullName"></label>
+        <input asp-for="FullName" class="form-control" />
+        <span asp-validation-for="FullName" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="YearOfStudy"></label>
+        <input asp-for="YearOfStudy" type="number" class="form-control" />
+        <span asp-validation-for="YearOfStudy" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Gpa"></label>
+        <input asp-for="Gpa" type="number" step="0.01" class="form-control" />
+        <span asp-validation-for="Gpa" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Email"></label>
+        <input asp-for="Email" class="form-control" />
+        <span asp-validation-for="Email" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Save Changes</button>
+    <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
+
+//The browser, C# when binding, Validation attributes
+// My part lives in validation attributes
+//The redirect moves the browser to a different URL so, F5 can't accidentally create a duplicate because there's no form to re submit anymore
+//Same Thinh : Both "Required", "MaxLength" and "Range" are written as attributes on properties
+//"Required", "MaxLength" actually change the database structure while "Range" is just a validation attribute, it does not affect the database

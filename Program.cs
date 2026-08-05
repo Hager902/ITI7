@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using StudentPortalWeb.Data;
+using StudentPortalWeb.Models;
 using StudentPortalWeb.Constraints;
   
 var builder = WebApplication.CreateBuilder(args);
@@ -19,6 +20,50 @@ builder.Services.AddRouting(options =>
 });
 
 var app = builder.Build();
+using (var scope = app.Services.CreateScope()){
+    var context = scope.ServiceProvider.GetRequiredService<StudentPortalContext>();
+    context.Database.EnsureCreated();
+
+     if (!context.Students.Any())
+    {
+        var students = new List<Student>{
+            new Student { FullName = "Yara Adel", YearOfStudy = 2, Gpa = 3.5, Email = "yara@iti.edu" },
+            new Student { FullName = "Omar Hesham", YearOfStudy = 1, Gpa = 2.8, Email = "omar@iti.edu" },
+            new Student { FullName = "Nada Samir", YearOfStudy = 2, Gpa = 3.9, Email = "nada@iti.edu" },
+            new Student { FullName = "Kareem Fouad", YearOfStudy = 1, Gpa = 3.2, Email = "kareem@iti.edu" }
+        };
+
+
+        var instructors = new List<Instructor>
+        {
+            new Instructor { FullName = "Hamdy", YearsOfExperience = 10 },
+            new Instructor { FullName = "Mona Khalil", YearsOfExperience = 6 }
+        };
+
+         
+        context.Students.AddRange(students);
+        context.Instructors.AddRange(instructors);
+        context.SaveChanges();
+
+        var courses = new List<Course>{
+    new Course
+    {
+        CourseName = "Web Development Using .NET",
+        Credits = 4,
+        InstructorId = instructors[0].Id
+    },
+    new Course
+    {
+        CourseName = "Database Fundamentals",
+        Credits = 3,
+        InstructorId = instructors[1].Id
+    }
+};
+
+context.Courses.AddRange(courses);
+context.SaveChanges();
+        }
+}
 
 if (!app.Environment.IsDevelopment())
 {
@@ -80,7 +125,6 @@ app.MapControllerRoute(
     //Lab ID: 15 ,(15 mod 4) + 1 = 4  Max Year = 4 
     // 2.5 + (15 mod 3) × 0.5 = 2.5   Min Gpa = 2.5
     // 15 mod 3 = 0, iti + A = itiA   Intake Code = itiA
-    //The default route is a catch all that matches any remaining request If it were at the top  all other routes would never be reached because the default would match first
-    //Yes, it is acceptable because multiple URLs can serve the same action
+    
 
  
