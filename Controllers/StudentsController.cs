@@ -38,9 +38,7 @@ using StudentPortalWeb.Models;
             return RedirectToAction(nameof(Index));
             }
 
-            public IActionResult Hager(int id){
-                return RedirectToAction(nameof(Hager), new { id = id });
-            }
+            
 
 
         public async Task<IActionResult> Details(int id){
@@ -62,8 +60,8 @@ using StudentPortalWeb.Models;
 
         [HttpPost]
         public async Task<IActionResult> Edit(int id, Student student){
-            if(!id.Equals(student.Id)){
-                return BadRequest();
+            if(id != student.Id){
+                return View(student);
             }
             else if(!ModelState.IsValid){
                 return View(student);
@@ -71,7 +69,7 @@ using StudentPortalWeb.Models;
             _context.Students.Update(student);
             await _context.SaveChangesAsync();
             TempData["Message"] = $"Student {student.FullName} updated successfully.";
-            return RedirectToAction(nameof(Hager), new { id = student.Id });
+            return RedirectToAction(nameof(HagerConfirmed), new { id = student.Id });
         }
 
         public async Task<IActionResult> HagerConfirmed(int id){
@@ -115,9 +113,11 @@ using StudentPortalWeb.Models;
 
 
         public async Task<IActionResult> Index(){
-            var students = await _context.Students.ToListAsync();
-            return View(students);
+        var students = await _context.Students.ToListAsync();
+       
+        return View(students);
         }
+
 
            public async Task<IActionResult> Top(int count){
             var students = await _context.Students

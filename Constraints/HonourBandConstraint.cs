@@ -23,8 +23,6 @@ namespace StudentPortalWeb.Constraints
                     return false;
                 }
 
-                return band.Equals("honor", StringComparison.OrdinalIgnoreCase);
-
                 return band switch
                 {
                     "A" => true,
