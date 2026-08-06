@@ -1,0 +1,24 @@
+@model IEnumerable<StudentPortalWeb.Models.Student>
+
+@{
+    ViewData["Title"] = "Search Results";
+}
+
+<h2>Search Results</h2>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Year</th>
+            <th>GPA</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var student in Model)
+        {
+            <partial name="_StudentRow" model="student" />
+        }
+    </tbody>
+</table>

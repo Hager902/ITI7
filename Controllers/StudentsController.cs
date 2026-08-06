@@ -114,6 +114,8 @@ using StudentPortalWeb.Models;
 
         public async Task<IActionResult> Index(){
         var students = await _context.Students.ToListAsync();
+
+        Console.WriteLine($"Students found: {students.Count}");
        
         return View(students);
         }

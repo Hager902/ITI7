@@ -113,6 +113,12 @@ app.MapControllerRoute(
     pattern : "students/honors/{band:honorBand}",
     defaults : new {controller = "Students", action = "Honors"}
 );
+
+app.MapControllerRoute(
+    name: "students",
+    pattern: "students",
+    defaults: new{controller = "Students", action = "Index"}
+);
  
  app.MapControllerRoute(
     name : "default",
@@ -121,10 +127,5 @@ app.MapControllerRoute(
 
     app.Run();
 
-
-    //Lab ID: 15 ,(15 mod 4) + 1 = 4  Max Year = 4 
-    // 2.5 + (15 mod 3) × 0.5 = 2.5   Min Gpa = 2.5
-    // 15 mod 3 = 0, iti + A = itiA   Intake Code = itiA
-    
 
  

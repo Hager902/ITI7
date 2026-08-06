@@ -1,20 +1,14 @@
-@model Student
+@model StudentPortalWeb.Models.Student
 
 @{
     ViewData["Title"] = "Student Details";
 }
 
-<div class="container mt-4">
-    <h2>@Model.FullName</h2>
-    
-    <div class="card">
-        <div class="card-body">
-            <p><strong>ID:</strong> @Model.Id</p>
-            <p><strong>Year of Study:</strong> @Model.YearOfStudy</p>
-            <p><strong>GPA:</strong> @Model.Gpa.ToString("F2")</p>
-            <p><strong>Email:</strong> @Model.Email</p>
-        </div>
-    </div>
-    
-    <a href="/students/roster" class="btn btn-secondary mt-3">Back to Roster</a>
-</div>
+<h2>Student Details</h2>
+
+<partial name="_StudentCard" model="Model" />
+
+<br />
+
+<a href="/students" class="btn btn-secondary">Back to List</a>
+<a href="/students/edit/@Model.Id" class="btn btn-primary">Edit</a>

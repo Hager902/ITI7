@@ -1,0 +1,16 @@
+@model StudentPortalWeb.Models.Student
+
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title">@Model.FullName</h5>
+        <p class="card-text">
+            Year: @Model.YearOfStudy
+        </p>
+        <p class="card-text">
+            GPA: <gpa-badge gpa="@Model.Gpa"></gpa-badge>
+        </p>
+    </div>
+</div>
+
+
+

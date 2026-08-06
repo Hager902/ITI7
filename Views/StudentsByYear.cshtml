@@ -1,40 +1,27 @@
-@model List<Student>
+@model IEnumerable<StudentPortalWeb.Models.Student>
+
 @{
-    ViewData["Title"] = $"Year {ViewData["Year"]} Students";
+    ViewData["Title"] = "Students by Year";
 }
 
+<h2>Students by Year</h2>
 
-<div class="container mt-4">
-    <h2>Year @ViewData["Year"] Students</h2>
-    
-    @if (Model.Count > 0)
-    {
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th>Full Name</th>
-                    <th>GPA</th>
-                    <th>Email</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var student in Model)
-                {
-                    <tr>
-                        <td>@student.FullName</td>
-                        <td>@student.Gpa.ToString("F2")</td>
-                        <td>@student.Email</td>
-                        <td><a href="/students/details/@student.Id" class="btn btn-sm btn-primary">View</a></td>
-                    </tr>
-                }
-            </tbody>
-        </table>
-    }
-    else
-    {
-        <p>No students found for year @ViewData["Year"].</p>
-    }
-    
-    <a href="/students/roster" class="btn btn-secondary mt-3">Back to Roster</a>
-</div>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Year</th>
+            <th>GPA</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var student in Model)
+        {
+            <partial name="_StudentRow" model="student" />
+        }
+    </tbody>
+</table>
+
+//Error: The partial view StudentRow requires a model of type Student, but null was passed
+//ASP.NET passes nothing null so the partial can't access Model.FullName or Model.YearOfStudy 

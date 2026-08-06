@@ -1,0 +1,17 @@
+@*Lab ID: 15, Chip Year = 4, Chip Label = Final
+//Because a partial's @model is independent, it receives one student
+//Index passes one student at a time in a loop, so Model is always a single Student
+
+
+*@
+@model StudentPortalWeb.Models.Student
+<tr>
+    <td>@Model.FullName</td>
+    <td><year-chip for="@Model.YearOfStudy"></year-chip></td>
+    <td>
+        <gpa-badge gpa="@Model.Gpa"></gpa-badge>
+    </td>
+    <td>
+        <a href="/students/details/@Model.Id" class="btn btn-sm btn-info">Details</a>
+    </td>
+</tr>
