@@ -3,13 +3,6 @@ using Microsoft.EntityFrameworkCore;
 using StudentPortalWeb.Data;
 using StudentPortalWeb.Models;
 
-//Because create GET just returns an empty form no database query needed
-//Because Edit is for changing an existing row, so we need to show the current values prefilled
-//An empty form would lose all existing data the whole point is to load and display the real row
-//Model would fail to match id to the parameter because names must match
-//Because the in memory object is a C# reference, disconnected from the database so, reloading ensures we display what actually got saved to the database
-
-
 
  namespace StudentPortalWeb.Controllers
 {
